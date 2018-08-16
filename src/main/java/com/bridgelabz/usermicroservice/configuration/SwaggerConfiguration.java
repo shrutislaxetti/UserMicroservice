@@ -1,4 +1,4 @@
-/*package com.bridgelabz.usermicroservice.configuration;
+package com.bridgelabz.usermicroservice.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -34,4 +34,4 @@ public class SwaggerConfiguration {
 				ApiKeyVehicle.HEADER, "Authorization", ",");
 	}
 
-}*/
+}

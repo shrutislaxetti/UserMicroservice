@@ -64,10 +64,9 @@ public class UserController {
 	 */
 	@PostMapping(value = "/login")
 	public ResponseEntity<Response> login(@RequestBody LoginDTO login, HttpServletResponse resp)
-			throws LoginException, UserNotFoundException, UserNotActivatedException, javax.security.auth.login.LoginException {
+			throws LoginException{
 
 		String token = userService.login(login);
-		System.out.println(token);
 		resp.setHeader("token", token);
 		
 		Response response = new Response();
