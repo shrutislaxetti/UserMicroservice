@@ -22,6 +22,7 @@ import com.bridgelabz.usermicroservice.model.LoginDTO;
 import com.bridgelabz.usermicroservice.model.RegistrationDTO;
 import com.bridgelabz.usermicroservice.model.ResetPassword;
 import com.bridgelabz.usermicroservice.model.Response;
+import com.bridgelabz.usermicroservice.service.FacebookServiceImpl;
 import com.bridgelabz.usermicroservice.service.UserService;
 
 
@@ -33,6 +34,32 @@ public class UserController {
 	private UserService userService;
 	
 
+	@Autowired
+	private FacebookServiceImpl facebookService;
+
+	@GetMapping(value = "/createFacebookAuthorization")
+	public String createFacebookAuthorization() {
+		return facebookService.createFacebookAuthorizationURL();
+	}
+
+	@GetMapping(value = "/getFacebookDetails()")
+	public ResponseEntity<String> getFacebookDetails() {
+		String details = facebookService.getFacebookDetails();
+		return new ResponseEntity<>(details, HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/facebook")
+	public ResponseEntity<Response> createFacebookAccessToken(@RequestParam String code, HttpServletResponse resp) {
+		String token = facebookService.createFacebookAccessToken(code);
+
+		resp.setHeader("token", token);
+
+		Response response = new Response();
+		response.setMessage("Login Successful");
+		response.setStatus(20);
+
+		return new ResponseEntity<>(response, HttpStatus.OK);
+	}
 	/**
 	 * TO register a user
 	 * @param registration
